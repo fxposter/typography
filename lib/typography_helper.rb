@@ -1,7 +1,7 @@
 module TypographyHelper
 
   def ty(str, options = {})
-    str.typography(options)
+    str.html_safe.typography(options)
   end
 
 end
