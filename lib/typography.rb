@@ -1,9 +1,6 @@
 class String
   def typography(options = {})
-    str = String.new(self)
-
-    #html_escape
-    str.gsub!(/[&><]/) { |special| { '&' => '&amp;', '>' => '&gt;', '<' => '&lt;' }[special] } if options[:escape_html]
+    str = self.dup
 
     #apostrophe
     str.gsub!(/(\w)'(\w)/, '\1&#146;\2')
@@ -30,7 +27,7 @@ class String
     str.gsub!(/(^|\s|\()&([A-Za-z0-9]{2,8}|#[\d]*);(\w{1,2})\s+([^\s])/i, '\1&\2;\3&nbsp;\4') #entities
     str.gsub!(/(&nbsp;|&#161;)(\w{1,2})\s+([^\s])/i, '\1\2&nbsp;\3\4')
   
-    str.to_s
+    str
   end
 
 
@@ -39,9 +36,9 @@ class String
   end
 
   def replace_quotes(left1 = '&#147;', right1 = '&#148;', left2 = '&#145;', right2 = '&#146;', letters = 'a-zA-Z')
-    str = String.new(self)
+    str = self.dup
     replace_quotes = lambda do
-      old_str = String.new(str)
+      old_str = str.dup
       str.gsub!(Regexp.new("(\"|\')([#{letters}].*?[^\\s])\\1", Regexp::MULTILINE | Regexp::IGNORECASE)) do |match|
         inside, before, after = $2, $`, $'
         if after.match(/^([^<]+>|>)/) || before.match(/<[^>]+$/) #inside tag
