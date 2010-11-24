@@ -1,0 +1,11 @@
+.DS_Store
+.*sw*
+.backups
+.bundle/
+.idea
+*.lock
+.rvmrc
+nbproject/
+*.tmproj
+*.gem
+
