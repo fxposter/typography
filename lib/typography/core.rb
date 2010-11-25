@@ -1,4 +1,4 @@
-module Typography
+module TypographyHelper
   class Core
 
     def initialize(str, options = {})

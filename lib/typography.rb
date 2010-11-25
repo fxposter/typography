@@ -1,6 +1,6 @@
 require "typography/helper"
 require "typography/core"
 
-module Typography
+module TypographyHelper
 end
 
