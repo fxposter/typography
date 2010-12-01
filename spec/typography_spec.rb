@@ -2,9 +2,22 @@ require 'spec_helper'
 
 describe TypographyHelper, 'with typography' do
   include ActionView::Helpers::TextHelper
+  include ActionView::Helpers::TagHelper
 
   it "should have t helper" do
     ty('typography me please').should == 'typography me&nbsp;please'
+  end
+
+  it "should typography output of h helper" do
+    h('Typography & &amp;').should == 'Typography &amp; &amp;amp;'
+  end
+
+  it "should typography output of simple_format helper" do
+    ty_simple("I'm first\n\nAnd I&nbsp;am&nbsp;second").should == "<p>I&#146;m first</p>\n\n<p>And I&nbsp;am&nbsp;second</p>"
+  end
+
+  it "should return '<p></p>' (simple_format of empty string) on simple_format(nil)" do
+    simple_format(nil).should == "<p></p>"
   end
 
   it "should make russian quotes for quotes with first russian letter" do
@@ -21,7 +34,7 @@ describe TypographyHelper, 'with typography' do
 
 
   it "should create second-level russian quotes" do
-    ty('Текст "в кавычках "второго уровня""').should == 'Текст &#171;в кавычках &#132;второго уровня&#147;&#187;'
+   ty('Текст "в кавычках "второго уровня""').should == 'Текст &#171;в&nbsp;кавычках &#132;второго уровня&#147;&#187;'
   end
 
 
@@ -54,10 +67,10 @@ describe TypographyHelper, 'with typography' do
   
   it "should make english and russian quotes in the same string" do
     ty('"Кавычки" and "Quotes"').should == '&#171;Кавычки&#187; and &#147;Quotes&#148;'
-    ty('"Quotes" и "Кавычки"').should == '&#147;Quotes&#148; и &#171;Кавычки&#187;'
+    ty('"Quotes" и "Кавычки"').should == '&#147;Quotes&#148; и&nbsp;&#171;Кавычки&#187;'
 
     ty('"Кавычки "второго уровня"" and "Quotes "second level""').should == '&#171;Кавычки &#132;второго уровня&#147;&#187; and &#147;Quotes &#145;second level&#146;&#148;'
-    ty('"Quotes "second level"" и "Кавычки "второго уровня""').should == '&#147;Quotes &#145;second level&#146;&#148; и &#171;Кавычки &#132;второго уровня&#147;&#187;'
+    ty('"Quotes "second level"" и "Кавычки "второго уровня""').should == '&#147;Quotes &#145;second level&#146;&#148; и&nbsp;&#171;Кавычки &#132;второго уровня&#147;&#187;'
   end
 
   it "should replace -- to &mdash;" do
@@ -103,11 +116,6 @@ describe TypographyHelper, 'with typography' do
     ty('мальчик-девочка').should == 'мальчик-девочка'
   end
 
-
-  it "should escape html if :escape_html => true is passed" do
-    ty('< & >',:escape_html => true).should == '&lt; &amp; &gt;'
-  end
-
   it "should replace single quote between letters to apostrophe" do
     ty('I\'m here').should == 'I&#146;m here'
   end
@@ -118,7 +126,7 @@ describe TypographyHelper, 'with typography' do
   end
 
   it "should typography real world examples" do
-    ty('"Заебалоооооо" противостояние образует сет, в частности, "тюремные психозы", индуцируемые при различных психопатологических типологиях.',:escape_html => true).should == '&#171;Заебалоооооо&#187; противостояние образует сет, в&nbsp;частности, &#171;тюремные психозы&#187;, индуцируемые при различных психопатологических типологиях.'
+    ty('"Заебалоооооо" противостояние образует сет, в частности, "тюремные психозы", индуцируемые при различных психопатологических типологиях.', :escape_html => true).should == '&#171;Заебалоооооо&#187; противостояние образует сет, в&nbsp;частности, &#171;тюремные психозы&#187;, индуцируемые при различных психопатологических типологиях.'
   end
 
   it "should typography real world examples" do
@@ -145,10 +153,5 @@ describe TypographyHelper, 'with typography' do
     ty('Испанцы говорят, что целовать мужчину без усов, - всё равно что есть яйцо без соли').should == 'Испанцы говорят, что целовать мужчину без усов,&nbsp;&mdash; всё равно что есть яйцо без соли'
   end
 
-  
-  
-  # it "should fail" do
-  #   1.should == 2
-  # end
-
 end
+
