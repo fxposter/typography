@@ -73,6 +73,10 @@ describe TypographyHelper, 'with typography' do
     ty('"Quotes "second level"" и "Кавычки "второго уровня""').should == '&#147;Quotes &#145;second level&#146;&#148; и&nbsp;&#171;Кавычки &#132;второго уровня&#147;&#187;'
   end
 
+  it "should make (“”) quotes in the same string" do
+    ty('“Кавычки” and “Quotes”').should == '&#132;Кавычки&#147; and &#132;Quotes&#147;'
+  end
+
   it "should replace -- to &mdash;" do
     ty('Replace -- to mdash please').should == 'Replace&nbsp;&mdash; to&nbsp;mdash please'
   end

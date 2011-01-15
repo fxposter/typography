@@ -10,7 +10,8 @@ module TypographyHelper
     def typography
       #apostrophe
       @out.gsub!(/(\w)'(\w)/, '\1&#146;\2')
-
+      @out.gsub!(/\“/,'&#132;')
+      @out.gsub!(/\”/,'&#147;')
       #russian quotes
       @out = replace_quotes '&#171;', '&#187;', '&#132;', '&#147;', 'а-яА-Я'
 
@@ -43,6 +44,7 @@ module TypographyHelper
 
     def replace_quotes(left1 = '&#147;', right1 = '&#148;', left2 = '&#145;', right2 = '&#146;', letters = 'a-zA-Z')
       str = @out.dup
+
       replace_quotes = lambda do
         old_str = str.dup
         str.gsub!(Regexp.new("(\"|\')([#{letters}].*?[^\\s])\\1", Regexp::MULTILINE | Regexp::IGNORECASE)) do |match|
