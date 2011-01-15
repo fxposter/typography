@@ -21,20 +21,20 @@ describe TypographyHelper, 'with typography' do
   end
 
   it "should make russian quotes for quotes with first russian letter" do
-    ty('"текст"').should == '&#171;текст&#187;'
-    ty('Text "текст" text').should == 'Text &#171;текст&#187; text'
-    ty('Text "текст" text "Другой текст" ').should == 'Text &#171;текст&#187; text &#171;Другой текст&#187; '
+    ty('"текст"').should == '&laquo;текст&raquo;'
+    ty('Text "текст" text').should == 'Text &laquo;текст&raquo; text'
+    ty('Text "текст" text "Другой текст" ').should == 'Text &laquo;текст&raquo; text &laquo;Другой текст&raquo; '
   end
 
   it "should do the same with single quotes" do
-    ty('\'текст\'').should == '&#171;текст&#187;'
-    ty('Text \'текст\' text').should == 'Text &#171;текст&#187; text'
-    ty('Text \'текст\' text \'Другой текст\' ').should == 'Text &#171;текст&#187; text &#171;Другой текст&#187; '
+    ty('\'текст\'').should == '&laquo;текст&raquo;'
+    ty('Text \'текст\' text').should == 'Text &laquo;текст&raquo; text'
+    ty('Text \'текст\' text \'Другой текст\' ').should == 'Text &laquo;текст&raquo; text &laquo;Другой текст&raquo; '
   end
 
 
   it "should create second-level russian quotes" do
-   ty('Текст "в кавычках "второго уровня""').should == 'Текст &#171;в&nbsp;кавычках &#132;второго уровня&#147;&#187;'
+   ty('Текст "в кавычках "второго уровня""').should == 'Текст &laquo;в&nbsp;кавычках &#132;второго уровня&#147;&raquo;'
   end
 
 
@@ -57,7 +57,7 @@ describe TypographyHelper, 'with typography' do
 
   it "should not replace quotes inside html tags" do
     ty('<a href="ссылка">ссылка</a>').should == '<a href="ссылка">ссылка</a>'
-    ty('<a href=\'ссылка\'>"ссылка"</a>').should == '<a href=\'ссылка\'>&#171;ссылка&#187;</a>'
+    ty('<a href=\'ссылка\'>"ссылка"</a>').should == '<a href=\'ссылка\'>&laquo;ссылка&raquo;</a>'
 
     ty('<a href=\'link\'>link</a>').should == '<a href=\'link\'>link</a>'
     ty('<a href="link">"link"</a>').should == '<a href="link">&#147;link&#148;</a>'
@@ -66,11 +66,11 @@ describe TypographyHelper, 'with typography' do
   end
   
   it "should make english and russian quotes in the same string" do
-    ty('"Кавычки" and "Quotes"').should == '&#171;Кавычки&#187; and &#147;Quotes&#148;'
-    ty('"Quotes" и "Кавычки"').should == '&#147;Quotes&#148; и&nbsp;&#171;Кавычки&#187;'
+    ty('"Кавычки" and "Quotes"').should == '&laquo;Кавычки&raquo; and &#147;Quotes&#148;'
+    ty('"Quotes" и "Кавычки"').should == '&#147;Quotes&#148; и&nbsp;&laquo;Кавычки&raquo;'
 
-    ty('"Кавычки "второго уровня"" and "Quotes "second level""').should == '&#171;Кавычки &#132;второго уровня&#147;&#187; and &#147;Quotes &#145;second level&#146;&#148;'
-    ty('"Quotes "second level"" и "Кавычки "второго уровня""').should == '&#147;Quotes &#145;second level&#146;&#148; и&nbsp;&#171;Кавычки &#132;второго уровня&#147;&#187;'
+    ty('"Кавычки "второго уровня"" and "Quotes "second level""').should == '&laquo;Кавычки &#132;второго уровня&#147;&raquo; and &#147;Quotes &#145;second level&#146;&#148;'
+    ty('"Quotes "second level"" и "Кавычки "второго уровня""').should == '&#147;Quotes &#145;second level&#146;&#148; и&nbsp;&laquo;Кавычки &#132;второго уровня&#147;&raquo;'
   end
 
   it "should make (“”) quotes in the same string" do
@@ -126,11 +126,11 @@ describe TypographyHelper, 'with typography' do
 
 
   it "should typography real world examples" do
-    ty('"Читаешь -- "Прокопьев любил солянку" -- и долго не можешь понять, почему солянка написана с маленькой буквы, ведь "Солянка" -- известный московский клуб."').should == '&#171;Читаешь&nbsp;&mdash; &#132;Прокопьев любил солянку&#147;&nbsp;&mdash; и&nbsp;долго не&nbsp;можешь понять, почему солянка написана с&nbsp;маленькой буквы, ведь &#132;Солянка&#147;&nbsp;&mdash; известный московский клуб.&#187;'
+    ty('"Читаешь -- "Прокопьев любил солянку" -- и долго не можешь понять, почему солянка написана с маленькой буквы, ведь "Солянка" -- известный московский клуб."').should == '&laquo;Читаешь&nbsp;&mdash; &#132;Прокопьев любил солянку&#147;&nbsp;&mdash; и&nbsp;долго не&nbsp;можешь понять, почему солянка написана с&nbsp;маленькой буквы, ведь &#132;Солянка&#147;&nbsp;&mdash; известный московский клуб.&raquo;'
   end
 
   it "should typography real world examples" do
-    ty('"Заебалоооооо" противостояние образует сет, в частности, "тюремные психозы", индуцируемые при различных психопатологических типологиях.', :escape_html => true).should == '&#171;Заебалоооооо&#187; противостояние образует сет, в&nbsp;частности, &#171;тюремные психозы&#187;, индуцируемые при различных психопатологических типологиях.'
+    ty('"Заебалоооооо" противостояние образует сет, в частности, "тюремные психозы", индуцируемые при различных психопатологических типологиях.', :escape_html => true).should == '&laquo;Заебалоооооо&raquo; противостояние образует сет, в&nbsp;частности, &laquo;тюремные психозы&raquo;, индуцируемые при различных психопатологических типологиях.'
   end
 
   it "should typography real world examples" do
@@ -150,7 +150,7 @@ describe TypographyHelper, 'with typography' do
   end
   
   it "should typography real world examples" do
-    ty('«Искусство после философии&#187; – концептуальные стратегии Джозефа Кошута и Харальда Зеемана').should == '«Искусство после философии&#187;&nbsp;&mdash; концептуальные стратегии Джозефа Кошута и&nbsp;Харальда Зеемана'
+    ty('«Искусство после философии&raquo; – концептуальные стратегии Джозефа Кошута и Харальда Зеемана').should == '«Искусство после философии&raquo;&nbsp;&mdash; концептуальные стратегии Джозефа Кошута и&nbsp;Харальда Зеемана'
   end
   
   it "should typography real world examples" do

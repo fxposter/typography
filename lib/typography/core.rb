@@ -13,7 +13,7 @@ module TypographyHelper
       @out.gsub!(/\“/,'&#132;')
       @out.gsub!(/\”/,'&#147;')
       #russian quotes
-      @out = replace_quotes '&#171;', '&#187;', '&#132;', '&#147;', 'а-яА-Я'
+      @out = replace_quotes '&laquo;', '&raquo;', '&#132;', '&#147;', 'а-яА-Я'
 
       #english quotes
       @out = replace_quotes
@@ -47,7 +47,7 @@ module TypographyHelper
 
       replace_quotes = lambda do
         old_str = str.dup
-        str.gsub!(Regexp.new("(\"|\')([#{letters}].*?[^\\s])\\1", Regexp::MULTILINE | Regexp::IGNORECASE)) do |match|
+        str.gsub!(Regexp.new("(\"|\'|&quot;)([#{letters}].*?[^\\s])\\1", Regexp::MULTILINE | Regexp::IGNORECASE)) do |match|
           inside, before, after = $2, $`, $'
           if after.match(/^([^<]+>|>)/) || before.match(/<[^>]+$/) #inside tag
             match
