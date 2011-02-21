@@ -1,3 +1,4 @@
+# encoding: utf-8
 module ActionView::Helpers::TextHelper
   def ty(text, options = {})
     TypographyHelper::Core.new(text.html_safe, options).typography

@@ -1,3 +1,4 @@
+# encoding: utf-8
 module TypographyHelper
   class Core
 
@@ -10,8 +11,8 @@ module TypographyHelper
     def typography
       #apostrophe
       @out.gsub!(/(\w)'(\w)/, '\1&#146;\2')
-      @out.gsub!(/\“/,'&#132;')
-      @out.gsub!(/\”/,'&#147;')
+#      @out.gsub!(/\“/,'&#132;')
+#      @out.gsub!(/\”/,'&#147;')
       #russian quotes
       @out = replace_quotes '&laquo;', '&raquo;', '&#132;', '&#147;', 'а-яА-Я'
 
