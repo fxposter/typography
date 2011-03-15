@@ -4,9 +4,9 @@ $:.unshift lib unless $:.include?(lib)
 
 require 'typography/version'
 
-spec = Gem::Specification.new do |s|
+Gem::Specification.new do |s|
   s.authors = ["Dmitry Shaposhnik", "Anton Versal", "Igor Gladkoborodov", "Pravosud Pavel"]
-  s.email = ["dmitry@shaposhnik.name", "ant.ver@gmail.com", "igor@workisfun.ru" ]
+  s.email = ["dmitry@shaposhnik.name", "ant.ver@gmail.com", "igor@workisfun.ru"]
   s.date = "2010-11-22"
   s.homepage = "https://github.com/VerAnt/typography"
   s.rubyforge_project = ""
