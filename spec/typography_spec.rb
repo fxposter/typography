@@ -158,5 +158,17 @@ describe TypographyHelper, 'with typography' do
     ty('Испанцы говорят, что целовать мужчину без усов, - всё равно что есть яйцо без соли').should == 'Испанцы говорят, что целовать мужчину без усов,&nbsp;&mdash; всё равно что есть яйцо без соли'
   end
 
+  it "should typography nested quotes properly" do
+    text = %{<p>&quot;Кто-то прибежал&quot; Кто-то прибежал Кто-то прибежал Кто-то прибежал Кто-то прибежал Кто-то прибежал Кто-то прибежал Кто-то прибежал Кто-то прибежал</p><p>&quot;Кто-то прибежал Кто-то прибежал&quot; &nbsp;Кто-то прибежал &laquo;Кто-то прибежал К&raquo;</p>}
+    expected_text = %{<p>&laquo;Кто-то прибежал&raquo; <span class=\"nobr\">Кто-то</span> прибежал <span class=\"nobr\">Кто-то</span> прибежал <span class=\"nobr\">Кто-то</span> прибежал <span class=\"nobr\">Кто-то</span> прибежал <span class=\"nobr\">Кто-то</span> прибежал <span class=\"nobr\">Кто-то</span> прибежал <span class=\"nobr\">Кто-то</span> прибежал <span class=\"nobr\">Кто-то</span> прибежал</p><p>&laquo;Кто-то прибежал <span class=\"nobr\">Кто-то</span> прибежал&raquo; &nbsp;Кто-то прибежал &laquo;Кто-то прибежал К&raquo;</p>}
+    ty(text).should == expected_text
+  end
+
+  it "should typography nested quotes properly on real-world examples" do
+    text = %{<p>Об очередном ляпе &laquo;налоговой библии&raquo; пишет в своей статье для &laquo;ЗН в Украине&raquo; пишет кандидат юридических наук, доцент кандидат юридических наук, доцент Данил Гетманцев.</p><p>&laquo;Даже при последующем выполнении плательщиком требований налоговой службы его счета будут находиться под арестом&raquo;</p>}
+    expected_text = %{<p>Об очередном ляпе &laquo;налоговой библии&raquo; пишет в&nbsp;своей статье для &laquo;ЗН&nbsp;в&nbsp;Украине&raquo; пишет кандидат юридических наук, доцент кандидат юридических наук, доцент Данил Гетманцев.</p><p>&laquo;Даже при последующем выполнении плательщиком требований налоговой службы его счета будут находиться под арестом&raquo;</p>}
+    ty(text).should == expected_text
+  end
+
 end
 

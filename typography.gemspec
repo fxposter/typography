@@ -22,8 +22,9 @@ spec = Gem::Specification.new do |s|
   s.extra_rdoc_files = ["README.rdoc"]
   s.rdoc_options = ["--main", "README.rdoc"]
 
-  s.add_development_dependency "rspec", ">= 2.0.0"
   s.add_dependency "actionpack"
+  s.add_development_dependency "rspec", ">= 2.0.0"
+  s.add_development_dependency "autotest"
 end
 
 

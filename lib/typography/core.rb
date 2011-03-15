@@ -11,8 +11,8 @@ module TypographyHelper
     def typography
       #apostrophe
       @out.gsub!(/(\w)'(\w)/, '\1&#146;\2')
-#      @out.gsub!(/\“/,'&#132;')
-#      @out.gsub!(/\”/,'&#147;')
+      @out.gsub!(/\“/,'&#132;')
+      @out.gsub!(/\”/,'&#147;')
       #russian quotes
       @out = replace_quotes '&laquo;', '&raquo;', '&#132;', '&#147;', 'а-яА-Я'
 
@@ -61,12 +61,14 @@ module TypographyHelper
       while replace_quotes.call do end
 
       # second level
+      str.gsub!('&', "\0&")
       replace_second_level_quotes = lambda do
-        str.gsub! Regexp.new("#{left1}(.*)#{left1}(.*)#{right1}(.*)#{right1}", Regexp::MULTILINE | Regexp::IGNORECASE) do |match|
-          "#{left1}#{$1}#{left2}#{$2}#{right2}#{$3}#{right1}"
+        str.gsub! Regexp.new("#{left1}([^\0`]*)\0#{left1}([^\0]*)\0#{right1}", Regexp::MULTILINE | Regexp::IGNORECASE) do
+          "#{left1}#{$1}#{left2}#{$2}#{right2}"
         end
       end
       while replace_second_level_quotes.call do end
+      str.gsub!("\0", '')
 
       str
     end
