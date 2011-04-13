@@ -27,6 +27,15 @@ describe TypographyHelper, 'with typography' do
     ty('Text "текст" text "Другой текст" ').should == 'Text &laquo;текст&raquo; text &laquo;Другой текст&raquo; '
   end
 
+  it "should make russian quotes for quotes with first russian letter, beginning with html tag" do
+    ty('"<a href="#link">те</a>кст"').should == '&laquo;<a href="#link">те</a>кст&raquo;'
+    ty('Text "<b>те</b>кст" text').should == 'Text &laquo;<b>те</b>кст&raquo; text'
+  end
+  
+  it "should make russian quotes for quotes with html tag" do
+    ty('Текст "Начало текста <a href="#link">те</a>кст"').should == 'Текст &laquo;Начало текста <a href="#link">те</a>кст&raquo;'
+  end  
+
   it "should do the same with single quotes" do
     ty('\'текст\'').should == '&laquo;текст&raquo;'
     ty('Text \'текст\' text').should == 'Text &laquo;текст&raquo; text'
