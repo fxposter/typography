@@ -48,7 +48,7 @@ module TypographyHelper
 
       replace_quotes = lambda do
         old_str = str.dup
-        str.gsub!(Regexp.new("(\"|\'|&quot;)([#{letters}].*?[^\\s])\\1", Regexp::MULTILINE | Regexp::IGNORECASE)) do |match|
+        str.gsub!(Regexp.new("(\"|\'|&quot;)((\s*<[^>]+>\s*)?[#{letters}]((<[^>]+>)|.)*?[^\\s])\\1", Regexp::MULTILINE | Regexp::IGNORECASE)) do |match|
           inside, before, after = $2, $`, $'
           if after.match(/^([^<]+>|>)/) || before.match(/<[^>]+$/) #inside tag
             match
