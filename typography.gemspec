@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency "actionpack"
   s.add_development_dependency "rspec", ">= 2.0.0"
   s.add_development_dependency "autotest"
+  s.add_development_dependency "ruby-debug"
 end
 
 

@@ -13,8 +13,9 @@ describe TypographyHelper, 'with typography' do
     h('Typography & &amp;').should == 'Typography &amp; &amp;amp;'
   end
 
-  it "should typography output of simple_format helper" do
-    ty_simple("I'm first\n\nAnd I&nbsp;am&nbsp;second").should == "<p>I&#146;m first</p>\n\n<p>And I&nbsp;am&nbsp;second</p>"
+  it "should work with custom-added formats" do
+    TypographyHelper.register(:simple, [TypographyHelper::Parsers::SimpleFormat, TypographyHelper::Parsers::Basic])
+    ty("I'm first\n\nAnd I&nbsp;am&nbsp;second", :simple).should == "<p>I&#146;m first</p>\n\n<p>And I&nbsp;am&nbsp;second</p>"
   end
 
   it "should return '<p></p>' (simple_format of empty string) on simple_format(nil)" do
@@ -42,11 +43,9 @@ describe TypographyHelper, 'with typography' do
     ty('Text \'текст\' text \'Другой текст\' ').should == 'Text &laquo;текст&raquo; text &laquo;Другой текст&raquo; '
   end
 
-
   it "should create second-level russian quotes" do
    ty('Текст "в кавычках "второго уровня""').should == 'Текст &laquo;в&nbsp;кавычках &#132;второго уровня&#147;&raquo;'
   end
-
 
   it "should make english quotes for quotes with first non-russian letter" do
     ty('"text"').should == '&#147;text&#148;'
@@ -140,7 +139,7 @@ describe TypographyHelper, 'with typography' do
   end
 
   it "should typography real world examples" do
-    ty('"Заебалоооооо" противостояние образует сет, в частности, "тюремные психозы", индуцируемые при различных психопатологических типологиях.', :escape_html => true).should == '&laquo;Заебалоооооо&raquo; противостояние образует сет, в&nbsp;частности, &laquo;тюремные психозы&raquo;, индуцируемые при различных психопатологических типологиях.'
+    ty('"Заебалоооооо" противостояние образует сет, в частности, "тюремные психозы", индуцируемые при различных психопатологических типологиях.').should == '&laquo;Заебалоооооо&raquo; противостояние образует сет, в&nbsp;частности, &laquo;тюремные психозы&raquo;, индуцируемые при различных психопатологических типологиях.'
   end
 
   it "should typography real world examples" do
