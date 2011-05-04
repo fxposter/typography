@@ -1,5 +1,4 @@
 require "typography/helper"
-require "typography/core"
 
 module TypographyHelper
   mattr_reader :registry
