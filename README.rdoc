@@ -9,12 +9,15 @@ You can use <tt>ty</tt> helper in your views:
 	ty 'This is a page title'
 	# => 'This is&nbsp;a&nbsp;page title'
 
-And you can use <tt>ty_simple = simple_format ty </tt> helper :)
- 	
-	
+You can define custom formats for typography rules:
+
+  TypographyHelper.register(:article, [TypographyHelper::Parsers::SimpleFormat, TypographyHelper::Parsers::Basic])
+  
+And use it:
+  
+	ty 'This is article text with custom typography', :article
 
 Plugin also replaces h and simple_format helpers to apply typography to their results.
-
 
 ==Installation
 

@@ -49,6 +49,3 @@ require "typography/parsers/simple_format"
 
 TypographyHelper.register(:default, [TypographyHelper::Parsers::Basic])
 
-#TypographyHelper.register(:article, [TypographyHelper::Parsers::Basic, TypographyHelper::Parsers::AddToLastParagraph('<img src="sdfasdfasdfsd" />')])
-#ty(@article.text, :article)
-

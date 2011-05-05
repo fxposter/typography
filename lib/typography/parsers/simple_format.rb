@@ -9,7 +9,7 @@ module TypographyHelper
       def initialize(options = {})
         @options = options
       end
-  
+      
       def parse(string)
         self.simple_format string, @options
       end
