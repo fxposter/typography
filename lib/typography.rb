@@ -1,18 +1,19 @@
+# encoding: utf-8
 require "typography/helper"
 
 module TypographyHelper
   mattr_reader :registry
-  
+
   def self.register(name, elements)
     @@registry ||= {}
     @@registry[name.to_sym] = get_parsers elements
   end
-  
+
   def self.parse(string, type = :default)
     @@registry[type].each do |parser|
       string = parser.parse string
     end
-    
+
     string
   end
 
@@ -26,7 +27,7 @@ module TypographyHelper
   # => Object
   def self.get_parsers(elements)
     result = []
-    
+
     elements.each do |element|
       if (element.is_a? Class)
         element = element.new
@@ -36,10 +37,10 @@ module TypographyHelper
         cls = cls.constantize
         element = cls.new
       end
-      
+
       result.push element
     end
-    
+
     result
   end
 end

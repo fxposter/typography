@@ -32,10 +32,10 @@ describe TypographyHelper, 'with typography' do
     ty('"<a href="#link">те</a>кст"').should == '&laquo;<a href="#link">те</a>кст&raquo;'
     ty('Text "<b>те</b>кст" text').should == 'Text &laquo;<b>те</b>кст&raquo; text'
   end
-  
+
   it "should make russian quotes for quotes with html tag" do
     ty('Текст "Начало текста <a href="#link">те</a>кст"').should == 'Текст &laquo;Начало текста <a href="#link">те</a>кст&raquo;'
-  end  
+  end
 
   it "should do the same with single quotes" do
     ty('\'текст\'').should == '&laquo;текст&raquo;'
@@ -73,7 +73,7 @@ describe TypographyHelper, 'with typography' do
 
     ty(' one">One</a> <a href="two"></a> <a href="three" ').should == ' one">One</a> <a href="two"></a> <a href="three" '
   end
-  
+
   it "should make english and russian quotes in the same string" do
     ty('"Кавычки" and "Quotes"').should == '&laquo;Кавычки&raquo; and &#147;Quotes&#148;'
     ty('"Quotes" и "Кавычки"').should == '&#147;Quotes&#148; и&nbsp;&laquo;Кавычки&raquo;'
@@ -145,7 +145,7 @@ describe TypographyHelper, 'with typography' do
   it "should typography real world examples" do
     ty('"They are the most likely habitat that we\'re going to get to in the foreseeable future," said NASA Ames Research Center\'s Aaron Zent, the lead scientist for the probe being used to look for unfrozen water.').should == '&#147;They are the most likely habitat that we&#146;re going to&nbsp;get to&nbsp;in&nbsp;the foreseeable future,&#148; said NASA Ames Research Center&#146;s Aaron Zent, the lead scientist for the probe being used to&nbsp;look for unfrozen water.'
   end
-  
+
   it "should typography real wordl examples" do
     ty('Фирменный стиль: от полиграфии к интернет-решениям (в рамках выставки «Дизайн и Реклама 2009»)').should == 'Фирменный стиль: от&nbsp;полиграфии к&nbsp;интернет-решениям (в&nbsp;рамках выставки «Дизайн и&nbsp;Реклама 2009»)'
   end
@@ -157,11 +157,11 @@ describe TypographyHelper, 'with typography' do
   it "should typography real world examples" do
     ty('Реанимация живописи: «новые дикие» и «трансавангард» в ситуации арт-рынка 1980-х').should == 'Реанимация живописи: «новые дикие» и&nbsp;«трансавангард» в&nbsp;ситуации арт-рынка <span class="nobr">1980-х</span>'
   end
-  
+
   it "should typography real world examples" do
     ty('«Искусство после философии&raquo; – концептуальные стратегии Джозефа Кошута и Харальда Зеемана').should == '«Искусство после философии&raquo;&nbsp;&mdash; концептуальные стратегии Джозефа Кошута и&nbsp;Харальда Зеемана'
   end
-  
+
   it "should typography real world examples" do
     ty('Испанцы говорят, что целовать мужчину без усов, - всё равно что есть яйцо без соли').should == 'Испанцы говорят, что целовать мужчину без усов,&nbsp;&mdash; всё равно что есть яйцо без соли'
   end
