@@ -1,7 +1,7 @@
 # encoding: utf-8
-require "typography/helper"
+require "typographer/helper"
 
-module TypographyHelper
+module TypographerHelper
   mattr_reader :registry
 
   def self.register(name, elements)
@@ -32,7 +32,7 @@ module TypographyHelper
       if (element.is_a? Class)
         element = element.new
       elsif (element.is_a? String)
-        cls = TypographyHelper::Parsers.name + '::' + element.to_s.split("::").last
+        cls = TypographerHelper::Parsers.name + '::' + element.to_s.split("::").last
         #Fails here of class doesn`t exist
         cls = cls.constantize
         element = cls.new
@@ -45,8 +45,8 @@ module TypographyHelper
   end
 end
 
-require "typography/parsers/basic"
-require "typography/parsers/simple_format"
+require "typographer/parsers/basic"
+require "typographer/parsers/simple_format"
 
-TypographyHelper.register(:default, [TypographyHelper::Parsers::Basic])
+TypographerHelper.register(:default, [TypographerHelper::Parsers::Basic])
 

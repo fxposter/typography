@@ -2,18 +2,18 @@
 lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 
-require 'typography/version'
+require 'typographer/version'
 
 Gem::Specification.new do |s|
   s.authors = ["Dmitry Shaposhnik", "Anton Versal", "Igor Gladkoborodov", "Pravosud Pavel"]
   s.email = ["dmitry@shaposhnik.name", "ant.ver@gmail.com", "igor@workisfun.ru"]
-  s.date = "2010-11-22"
-  s.homepage = "https://github.com/VerAnt/typography"
+  s.date = "2011-07-18"
+  s.homepage = "https://github.com/Slotos/typographer"
   s.rubyforge_project = ""
-  s.name = TypographyHelper::GEM_NAME
-  s.version = TypographyHelper::VERSION
-  s.summary = "#{TypographyHelper::GEM_NAME}-#{TypographyHelper::VERSION}"
-  s.description = "This gem makes text more readable by applying some typographic rules to string."
+  s.name = TypographerHelper::GEM_NAME
+  s.version = TypographerHelper::VERSION
+  s.summary = "#{TypographerHelper::GEM_NAME}-#{TypographerHelper::VERSION}"
+  s.description = "This gem makes text more readable by applying some typographic rules to string.\nThis is a fork of original typography gem."
   s.files = Dir.glob("{lib,spec}/**/*") +
     ["README.rdoc", "Rakefile", "Changelog", "Gemfile", "init.rb"]
 

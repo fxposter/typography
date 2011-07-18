@@ -1,20 +1,20 @@
 # encoding: utf-8
 require 'spec_helper'
 
-describe TypographyHelper, 'with typography' do
+describe TypographerHelper, 'with typographer' do
   include ActionView::Helpers::TextHelper
   include ActionView::Helpers::TagHelper
 
   it "should have t helper" do
-    ty('typography me please').should == 'typography me&nbsp;please'
+    ty('typographer me please').should == 'typographer me&nbsp;please'
   end
 
-  it "should typography output of h helper" do
-    h('Typography & &amp;').should == 'Typography &amp; &amp;amp;'
+  it "should typographer output of h helper" do
+    h('Typographer & &amp;').should == 'Typographer &amp; &amp;amp;'
   end
 
   it "should work with custom-added formats" do
-    TypographyHelper.register(:simple, [TypographyHelper::Parsers::SimpleFormat, TypographyHelper::Parsers::Basic])
+    TypographerHelper.register(:simple, [TypographerHelper::Parsers::SimpleFormat, TypographerHelper::Parsers::Basic])
     ty("I'm first\n\nAnd I&nbsp;am&nbsp;second", :simple).should == "<p>I&#146;m first</p>\n\n<p>And I&nbsp;am&nbsp;second</p>"
   end
 
@@ -134,45 +134,45 @@ describe TypographyHelper, 'with typography' do
   end
 
 
-  it "should typography real world examples" do
+  it "should typographer real world examples" do
     ty('"Читаешь -- "Прокопьев любил солянку" -- и долго не можешь понять, почему солянка написана с маленькой буквы, ведь "Солянка" -- известный московский клуб."').should == '&laquo;Читаешь&nbsp;&mdash; &#132;Прокопьев любил солянку&#147;&nbsp;&mdash; и&nbsp;долго не&nbsp;можешь понять, почему солянка написана с&nbsp;маленькой буквы, ведь &#132;Солянка&#147;&nbsp;&mdash; известный московский клуб.&raquo;'
   end
 
-  it "should typography real world examples" do
+  it "should typographer real world examples" do
     ty('"Заебалоооооо" противостояние образует сет, в частности, "тюремные психозы", индуцируемые при различных психопатологических типологиях.').should == '&laquo;Заебалоооооо&raquo; противостояние образует сет, в&nbsp;частности, &laquo;тюремные психозы&raquo;, индуцируемые при различных психопатологических типологиях.'
   end
 
-  it "should typography real world examples" do
+  it "should typographer real world examples" do
     ty('"They are the most likely habitat that we\'re going to get to in the foreseeable future," said NASA Ames Research Center\'s Aaron Zent, the lead scientist for the probe being used to look for unfrozen water.').should == '&#147;They are the most likely habitat that we&#146;re going to&nbsp;get to&nbsp;in&nbsp;the foreseeable future,&#148; said NASA Ames Research Center&#146;s Aaron Zent, the lead scientist for the probe being used to&nbsp;look for unfrozen water.'
   end
 
-  it "should typography real wordl examples" do
+  it "should typographer real wordl examples" do
     ty('Фирменный стиль: от полиграфии к интернет-решениям (в рамках выставки «Дизайн и Реклама 2009»)').should == 'Фирменный стиль: от&nbsp;полиграфии к&nbsp;интернет-решениям (в&nbsp;рамках выставки «Дизайн и&nbsp;Реклама 2009»)'
   end
 
-  it "should typography real world examples" do
+  it "should typographer real world examples" do
     ty('решениям (в рамках выставки').should == 'решениям (в&nbsp;рамках выставки'
   end
 
-  it "should typography real world examples" do
+  it "should typographer real world examples" do
     ty('Реанимация живописи: «новые дикие» и «трансавангард» в ситуации арт-рынка 1980-х').should == 'Реанимация живописи: «новые дикие» и&nbsp;«трансавангард» в&nbsp;ситуации арт-рынка <span class="nobr">1980-х</span>'
   end
 
-  it "should typography real world examples" do
+  it "should typographer real world examples" do
     ty('«Искусство после философии&raquo; – концептуальные стратегии Джозефа Кошута и Харальда Зеемана').should == '«Искусство после философии&raquo;&nbsp;&mdash; концептуальные стратегии Джозефа Кошута и&nbsp;Харальда Зеемана'
   end
 
-  it "should typography real world examples" do
+  it "should typographer real world examples" do
     ty('Испанцы говорят, что целовать мужчину без усов, - всё равно что есть яйцо без соли').should == 'Испанцы говорят, что целовать мужчину без усов,&nbsp;&mdash; всё равно что есть яйцо без соли'
   end
 
-  it "should typography nested quotes properly" do
+  it "should typographer nested quotes properly" do
     text = %{<p>&quot;Кто-то прибежал&quot; Кто-то прибежал Кто-то прибежал Кто-то прибежал Кто-то прибежал Кто-то прибежал Кто-то прибежал Кто-то прибежал Кто-то прибежал</p><p>&quot;Кто-то прибежал Кто-то прибежал&quot; &nbsp;Кто-то прибежал &laquo;Кто-то прибежал К&raquo;</p>}
     expected_text = %{<p>&laquo;Кто-то прибежал&raquo; <span class=\"nobr\">Кто-то</span> прибежал <span class=\"nobr\">Кто-то</span> прибежал <span class=\"nobr\">Кто-то</span> прибежал <span class=\"nobr\">Кто-то</span> прибежал <span class=\"nobr\">Кто-то</span> прибежал <span class=\"nobr\">Кто-то</span> прибежал <span class=\"nobr\">Кто-то</span> прибежал <span class=\"nobr\">Кто-то</span> прибежал</p><p>&laquo;Кто-то прибежал <span class=\"nobr\">Кто-то</span> прибежал&raquo; &nbsp;Кто-то прибежал &laquo;Кто-то прибежал К&raquo;</p>}
     ty(text).should == expected_text
   end
 
-  it "should typography nested quotes properly on real-world examples" do
+  it "should typographer nested quotes properly on real-world examples" do
     text = %{<p>Об очередном ляпе &laquo;налоговой библии&raquo; пишет в своей статье для &laquo;ЗН в Украине&raquo; пишет кандидат юридических наук, доцент кандидат юридических наук, доцент Данил Гетманцев.</p><p>&laquo;Даже при последующем выполнении плательщиком требований налоговой службы его счета будут находиться под арестом&raquo;</p>}
     expected_text = %{<p>Об очередном ляпе &laquo;налоговой библии&raquo; пишет в&nbsp;своей статье для &laquo;ЗН&nbsp;в&nbsp;Украине&raquo; пишет кандидат юридических наук, доцент кандидат юридических наук, доцент Данил Гетманцев.</p><p>&laquo;Даже при последующем выполнении плательщиком требований налоговой службы его счета будут находиться под арестом&raquo;</p>}
     ty(text).should == expected_text

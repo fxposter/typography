@@ -1,4 +1,4 @@
-==Typography
+==Typographer
 
 Simple plugin to make text more readable by applying some typographic rules to string. It is intended to use for russian texts, but some english typography rules are also supported.
 
@@ -11,10 +11,10 @@ You can use <tt>ty</tt> helper in your views:
 
 You can define custom formats for typography rules:
 
-  TypographyHelper.register(:article, [TypographyHelper::Parsers::SimpleFormat, TypographyHelper::Parsers::Basic])
-  
+  TypographerHelper.register(:article, [TypographerHelper::Parsers::SimpleFormat, TypographerHelper::Parsers::Basic])
+
 And use it:
-  
+
 	ty 'This is article text with custom typography', :article
 
 Plugin also replaces h and simple_format helpers to apply typography to their results.
@@ -23,7 +23,7 @@ Plugin also replaces h and simple_format helpers to apply typography to their re
 
 In your <tt>Gemfile</tt> add
 
-	gem 'typography'
+	gem 'typographer'
 
 and run <tt>bundle install</tt>.
 

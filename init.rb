@@ -1,5 +1,5 @@
 # encoding: utf-8
-require 'typography'
+require 'typographer'
 
-ActionView::Base.send :include, TypographyHelper
+ActionView::Base.send :include, TypographerHelper
 

@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'action_view'
 
-module TypographyHelper
+module TypographerHelper
   module Parsers
     class SimpleFormat
       include ActionView::Helpers::TextHelper

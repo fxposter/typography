@@ -1,5 +1,5 @@
 # encoding: utf-8
-module TypographyHelper
+module TypographerHelper
   module Parsers
     class Basic
       def initialize(options = {})
