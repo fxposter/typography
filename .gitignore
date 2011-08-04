@@ -10,3 +10,5 @@ nbproject/
 *.gem
 .project
 .rspec
+*.rbc
+*/**/*.rbc
