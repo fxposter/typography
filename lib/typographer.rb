@@ -14,7 +14,7 @@ module TypographerHelper
       string = parser.parse string
     end
 
-    string
+    string.html_safe
   end
 
   module Parsers
