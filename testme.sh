@@ -17,7 +17,7 @@ function run {
   bundle exec rspec spec
 }
 
-for version in 'ruby-1.8.7@typographer' 'ree-1.8.7@typographer' 'ruby-1.9.2@typographer' 'jruby-1.6.3@typographer' 'rbx-master@typographer'
+for version in 'ruby-1.8.7@typographer' 'ree-1.8.7@typographer' 'ruby-1.9.2@typographer' 'rbx-master@typographer'
 	do
 		rvm use $version --create
 		run

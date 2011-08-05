@@ -13,7 +13,7 @@ module TypographerHelper
         string.gsub!(/”/,'&#147;')
 
         if (RUBY_VERSION > '1.9')
-          string.gsub!(Regexp.new("(\p{Word})'(\p{Word})"), '\1&#146;\2')
+          string.gsub!(Regexp.new('(\p{Word})\'(\p{Word})'), '\1&#146;\2')
         else
           string.gsub!(/(\w)'(\w)/, '\1&#146;\2')
         end
@@ -23,45 +23,21 @@ module TypographerHelper
 
         #english quotes
         string = replace_quotes string
-
+        
         replaces.each do |replacement|
           string.gsub!(replacement[0], replacement[1])
         end
-
-        # else
-          # #russian quotes
-          # string = replace_quotes string, '&laquo;', '&raquo;', '&#132;', '&#147;', 'а-яА-Я'
-# 
-          # #english quotes
-          # string = replace_quotes string
-# 
-          # #mdash
-          # string.gsub!(/--/, '&mdash;')
-          # string.gsub!(/(\w|;|,)\s+(—|–|-)\s*(\w)/, '\1&nbsp;&mdash; \3')
-          # string.gsub!(/\s+&mdash;/, '&nbsp;&mdash;')
-# 
-          # #nobr
-          # #around dash-separated words (что-то)
-          # string.gsub!(/(^|\s)((\w|0-9){1,3})-((\w|0-9){1,3})($|\s)/, '\1<span class="nobr">\2-\4</span>\6')
-          # #1980-x почему-то
-          # string.gsub!(/(^|\s)((\w|0-9)+)-((\w|0-9){1,3})($|\s)/, '\1<span class="nobr">\2-\4</span>\6')
-# 
-          # #non brake space
-          # string.gsub!(/(^|\s|\()(\w{1,2})\s+([^\s])/i, '\1\2&nbsp;\3')
-          # string.gsub!(/(^|\s|\()&([A-Za-z0-9]{2,8}|#[\d]*);(\w{1,2})\s+([^\s])/i, '\1&\2;\3&nbsp;\4') #entities
-          # string.gsub!(/(&nbsp;|&#161;)(\w{1,2})\s+([^\s])/i, '\1\2&nbsp;\3\4')
-        # end
-
+        
         string
       end
       
       private
       
       def replaces
-        @@replaces ||= parse_replaces
+        @@replacements ||= make_replaces
       end
       
-      def parse_replaces
+      def make_replaces
           a = [
             ['--', '&mdash;'],
             
@@ -81,8 +57,7 @@ module TypographerHelper
           ]
           
           a.collect do |regex, replacement|
-            regex = regex.gsub('{Word}', '\w') unless (RUBY_VERSION > '1.9')
-            debugger
+            regex = regex.gsub('\p{Word}', '\w') if (RUBY_VERSION < '1.9')
             regex = Regexp.new(regex)
             [regex, replacement]
           end
